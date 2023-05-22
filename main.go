@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/webcognito/kalkulacka_app/cmd/electric"
-	"github.com/webcognito/kalkulacka_app/cmd/gas"
+	"github.com/webcognito/appKalkulacka/cmd/electric"
+	"github.com/webcognito/appKalkulacka/cmd/gas"
 )
 
 func main() {

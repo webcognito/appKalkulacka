@@ -1,0 +1,97 @@
+{{ define "content" }}
+<div class="container mt-5 mb-5">
+  <form id="printEForm" class="row g-3 form-bg-color" action="/" method="">
+    <h3 class="text-center text-primary"><u>Elektřina - Vaše Údaje</u></h3>
+    <div class="d-flex text-center justify-content-around">
+      <h5>Dodavatel<br><small class="text-primary">{{.Company}}</small></h5>
+      <h5>Smlouva<br><small class="text-primary">{{.ContractDuration}}</small></h5>
+      <h5>Dist. sazba<br><small class="text-primary">{{.DistCode}}</small></h5>
+    </div>
+    <div class="form-label text-center col-6 mt-4">
+      <label for="usageVT">Spotřeba VT (MWh)</label>
+      <input type="number" class="form-control text-center" id="usageVT" name="usageVT" value="{{.UsageVT}}" disabled>
+    </div>
+    <div class="form-label text-center col-6 mt-4">
+      <label for="usageNT">Spotřeba NT (MWh)</label>
+      <input type="number" class="form-control text-center" id="usageNT" name="usageNT" value="{{.UsageNT}}" disabled>
+    </div>
+    <div class="form-label text-center col-6 mt-2">
+      <label for="mainBreaker">Hlavní jističe (A)</label>
+      <input type="number" class="form-control text-center" id="mainBreaker" name="mainBreaker" value="{{.MainBreaker}}" disabled>
+    </div>
+    <div class="form-label text-center col-6 mt-2">
+      <label for="phases">Počet fází</label>
+      <input type="number" class="form-control text-center" id="phases" name="phases" value="{{.Phases}}" disabled>
+    </div>
+    <div class="container">
+      <hr class="opacity-75 border-primary border-top border-3">
+    </div>
+    <h4 class="text-primary text-center"><u>Cena</u></h4>
+    <div class="form-label text-center col-6">
+      <label for="CostVT">Za Vysoký Tarif (Kč)</label>
+      <input type="number" class="form-control text-center" id="CostVT" name="CostVT" value="{{.CostVT}}" disabled> 
+    </div>
+    <div class="form-label text-center col-6">
+      <label for="costNT">Za Nizky Tarif (Kč)</label>
+      <input type="number" class="form-control text-center" id="costNT" name="costNT" value="{{.CostNT}}" disabled> 
+    </div>
+    <div class="form-label text-center col-6">
+      <label for="constPay">Měsíční platby (Kč)</label>
+      <input type="number" class="form-control text-center" id="constPay" name="constPay" value="{{.CostMonth}}" disabled> 
+    </div>
+    <div class="form-label text-center col-6">
+      <label for="poze">POZE (Kč)</label>
+      <input type="number" class="form-control text-center" id="poze" name="poze" value="{{.Poze}}" disabled> 
+    </div>
+    <div class="container">
+      <hr class="opacity-75 border-primary border-top border-3">
+    </div>
+    <h4 class="text-primary text-center"><u>Úhrada</u></h4>
+    <div class="form-label text-center col-6">
+      <label for="total">Za {{.NumberOfMonths}} Měsícu (Kč)</label>
+      <input type="number" class="form-control text-center" id="total" name="total" value="{{.Total}}" disabled> 
+    </div>
+    <div class="form-label text-center col-6 mb-5">
+      <label for="totalMonth">Měsíčna Záloha (Kč)</label>
+      <input type="number" class="form-control text-center" id="advance" name="advance" value="{{.Advance}}" disabled> 
+    </div>
+  </form>
+  <!--- PDF doesn't display cs text correctly
+    <div class="d-grid mt-5 mb-5">
+    <button type="button" id="print" onclick="savePDF()" class="btn btn-primary btn-block">Download</button>
+  </div>
+-->
+  <div class="d-grid mt-5 mb-5">
+    <button type="button" onclick="saveJPG()" class="btn btn-primary btn-block">Stáhnout</button>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js "></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+/*window.jsPDF = window.jspdf.jsPDF;
+var docPDF = new jsPDF();
+function savePDF(){
+var elementHTML = document.getElementById("printEForm");
+docPDF.html(elementHTML, {
+ callback: function(docPDF) {
+  docPDF.save('Plyn_Vypocet.pdf');
+ },
+ x: 15,
+ y: 15,
+ width: 170,
+ windowWidth: 650
+});
+}*/
+function saveJPG() {
+  const element = document.getElementById("printEForm");
+  const canvas = document.getElementById("my-canvas");
+  const newImage = html2canvas(element).then(function(canvas) {
+    const dataURL = canvas.toDataURL();
+    const link = document.createElement("a");
+    link.download = "image.jpg";
+    link.href = dataURL;
+    link.click();
+  });
+}
+  </script>
+{{ end }}
