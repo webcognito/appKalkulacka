@@ -147,7 +147,7 @@ function downloadDetailCalculation() {
           },
       },
   };
-pdfMake.createPdf(dd).download(pdfName().toString());
+pdfMake.createPdf(dd).download(pdfNameCalc().toString());
 }
 
 // Download Comparison Table
@@ -155,6 +155,7 @@ function downloadComparision() {
   // get data from local storage 
   // Format: [{company: "PRE", contract: "1 year", usage: "3", months: "12", total: "2400", advance: "200"}]
   const gRows = getFromLocalStorage();
+  
   // Columns display order
   let columns = ['company', 'contract', 'usage', 'months', 'total', 'advance'];
 
@@ -224,7 +225,7 @@ function downloadComparision() {
       },
   };
  // Create pdf and download
-  pdfMake.createPdf(dd, tableLayouts).download(pdfName().toString());
+  pdfMake.createPdf(dd, tableLayouts).download(pdfNameComp().toString());
 }
 
 // Downloading both detail and comparision table
@@ -245,7 +246,7 @@ function downloadDetailWithComp() {
 
   // data for comparision table
   const gRows = getFromLocalStorage();
-  let columns = ['Company', 'Contract', 'Usage', 'Months', 'Total', 'Advance'];
+  let columns = ['company', 'contract', 'usage', 'months', 'total', 'advance'];
   
   // layout function for comp table
   tableLayouts = {
@@ -417,7 +418,7 @@ function downloadDetailWithComp() {
       },
   };
 
-pdfMake.createPdf(dd, tableLayouts).download(pdfName().toString());
+pdfMake.createPdf(dd, tableLayouts).download(pdfNameCalcComp().toString());
 }
 // Building table body
 function buildTableBody(data, columns, showHeaders, headers) {
@@ -453,11 +454,27 @@ function euDate() {
   return date
 }
 // Generate Pdf download name 2023_5_21_*.pdf
-function pdfName() {
+function pdfNameCalc() {
   const dateObj = new Date();
   const month = dateObj.getUTCMonth() + 1; //months from 1-12
   const day = dateObj.getUTCDate();
   const year = dateObj.getUTCFullYear();
-  downloadName = year + "_" + month + "_" + day + "_Plyn.pdf";
+  downloadName = year + "_" + month + "_" + day + "_Plyn_Vypocet.pdf";
   return downloadName
 }
+function pdfNameComp() {
+    const dateObj = new Date();
+    const month = dateObj.getUTCMonth() + 1; //months from 1-12
+    const day = dateObj.getUTCDate();
+    const year = dateObj.getUTCFullYear();
+    downloadName = year + "_" + month + "_" + day + "_Plyn_Srovnani.pdf";
+    return downloadName
+  }
+  function pdfNameCalcComp() {
+    const dateObj = new Date();
+    const month = dateObj.getUTCMonth() + 1; //months from 1-12
+    const day = dateObj.getUTCDate();
+    const year = dateObj.getUTCFullYear();
+    downloadName = year + "_" + month + "_" + day + "_Plyn.pdf";
+    return downloadName
+  }
