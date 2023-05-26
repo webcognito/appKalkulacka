@@ -46,7 +46,7 @@
     <div class="container">
       <hr class="opacity-75 border-primary border-top border-3">
     </div>
-    <h4 class="text-primary text-center"><u>Úhrada</u></h4>
+    <h4 class="text-primary text-center"><u>Celková Cena</u></h4>
     <div class="form-label text-center col-6">
       <label for="total">Za {{.NumberOfMonths}} Měsícu (Kč)</label>
       <input type="number" class="form-control text-center" id="total" name="total" value="{{.Total}}" disabled> 
@@ -55,43 +55,76 @@
       <label for="totalMonth">Měsíčna Záloha (Kč)</label>
       <input type="number" class="form-control text-center" id="advance" name="advance" value="{{.Advance}}" disabled> 
     </div>
+    <h6 class="text-center">webcognito.com - Kalkulačka</h6>
   </form>
-  <!--- PDF doesn't display cs text correctly
-    <div class="d-grid mt-5 mb-5">
-    <button type="button" id="print" onclick="savePDF()" class="btn btn-primary btn-block">Download</button>
-  </div>
--->
-  <div class="d-grid mt-5 mb-5">
-    <button type="button" onclick="saveJPG()" class="btn btn-primary btn-block">Stáhnout</button>
-  </div>
+
+  <div class="row mt-5 mb-5">
+  <div class="col-1"></div>
+  <button type="button" onclick="downloadDetailCalculation()" class="btn btn-primary btn-block col-4"><i class="fa-solid fa-download"></i><br>Stáhnout Výpočet</button>
+  <div class="col-2"></div>
+  <button type="button" onclick="addElectricComp()" class="btn btn-primary btn-block col-4">Přidat do Srovnání<br><i class="fa-solid fa-arrow-down"></i></button>
+  <div class="col-1"></div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js "></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script>
-/*window.jsPDF = window.jspdf.jsPDF;
-var docPDF = new jsPDF();
-function savePDF(){
-var elementHTML = document.getElementById("printEForm");
-docPDF.html(elementHTML, {
- callback: function(docPDF) {
-  docPDF.save('Plyn_Vypocet.pdf');
- },
- x: 15,
- y: 15,
- width: 170,
- windowWidth: 650
-});
-}*/
-function saveJPG() {
-  const element = document.getElementById("printEForm");
-  const canvas = document.getElementById("my-canvas");
-  const newImage = html2canvas(element).then(function(canvas) {
-    const dataURL = canvas.toDataURL();
-    const link = document.createElement("a");
-    link.download = "image.jpg";
-    link.href = dataURL;
-    link.click();
-  });
-}
-  </script>
+<!-- Table for comparison -->
+<div id="tablePrint" style="overflow-x: auto;" class="row">
+  <h4 class="text-danger text-center">Srovnání Výpočtu</h4>
+<table id="savedComp" class="text-center form-bg-color">
+  <tr>
+    <th>Dodavatel</th>
+    <th>Smlouva</th>
+    <th>Spotřeba VT</th>
+    <th>Spotřeba NT</th>
+    <th>Měsícu</th>
+    <th>Cena</th>
+    <th>Záloha</th>
+    <!-- <th>Delete</th> -->
+  </tr>
+  <!-- created by js -->
+</table>
+<div class="row mt-2 mb-2">
+  <div class="col-5"></div>
+  <button type="button" onclick="clearETable(eRows)" class="btn btn-dark btn-block col-2 text-danger text-center"><i class="fa-regular fa-trash-can" style="color: #db3545;"></i> Clear Table</button>
+  <div class="col-5"></div>
+</div>
+</div>
+<!-- End of comp table -->
+<div class="row mt-5 mb-5">
+  <div class="col-1"></div>
+  <button type="button" onclick="downloadComparision()" class="btn btn-primary btn-block col-4"><i class="fa-solid fa-download"></i><br>Stáhnout Srovnání</button>
+  <div class="col-2"></div>
+  <button type="button" onclick="downloadDetailWithComp()" class="btn btn-primary btn-block col-4"><i class="fa-solid fa-download"></i><br>Stáhnout Vše</button>
+  <div class="col-1"></div>
+</div>
+</div>
+<!-- Hidden table for saving data to local storage -->
+<table id="comp" class="form-bg-color text-center" hidden>
+  <tr>
+    <td>{{.Company}}</td>
+    <td>{{.ContractDuration}}</td>
+    <td>{{.DistCode}}</td>
+    <td>{{.UsageVT}}</td>
+    <td>{{.UsageNT}}</td>
+    <td>{{.MainBreaker}}</td>
+    <td>{{.Phases}}</td>
+    <td>{{.CostVT}}</td>
+    <td>{{.CostNT}}</td>
+    <td>{{.CostMonth}}</td>
+    <td>{{.Poze}}</td>
+    <td>{{.NumberOfMonths}}</td>
+    <td>{{.Total}}</td>
+    <td>{{.Advance}}</td>
+    <td>{{.Uuid}}</td>
+  </tr>
+</table>
+</div>
+
+<!-- Use JS -->
+  <script type="text/javascript" src="static/js/electric_download.js"></script>
+  <!-- JS for comparison table -->
+  <script type="text/javascript" src="static/js/renderElectricTable.js"></script>
+
+  <!-- CDN for pdfmake -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js" integrity="sha512-a9NgEEK7tsCvABL7KqtUTQjl69z7091EVPpw5KxPlZ93T141ffe1woLtbXTX+r2/8TtTvRX/v4zTL2UlMUPgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.min.js" integrity="sha512-P0bOMePRS378NwmPDVPU455C/TuxDS+8QwJozdc7PGgN8kLqR4ems0U/3DeJkmiE31749vYWHvBOtR+37qDCZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 {{ end }}

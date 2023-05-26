@@ -50,7 +50,7 @@
   <div class="col-1"></div>
   <button type="button" onclick="downloadDetailCalculation()" class="btn btn-primary btn-block col-4"><i class="fa-solid fa-download"></i><br>Stáhnout Výpočet</button>
   <div class="col-2"></div>
-  <button type="button" onclick="addComp()" class="btn btn-primary btn-block col-4">Přidat do Srovnání<br><i class="fa-solid fa-arrow-down"></i></button>
+  <button type="button" onclick="addGasComp()" class="btn btn-primary btn-block col-4">Přidat do Srovnání<br><i class="fa-solid fa-arrow-down"></i></button>
   <div class="col-1"></div>
 </div>
 <!-- Table for comparison -->
@@ -67,8 +67,13 @@
   </tr>
   <!-- created by js -->
 </table>
+<div class="row mt-2 mb-2">
+  <div class="col-5"></div>
+  <button type="button" onclick="clearGTable(gRows)" class="btn btn-dark btn-block col-2 text-danger text-center"><i class="fa-regular fa-trash-can" style="color: #db3545;"></i> Clear Table</button>
+  <div class="col-5"></div>
 </div>
-<!-- End of table -->
+</div>
+<!-- End of comp table -->
 <div class="row mt-5 mb-5">
   <div class="col-1"></div>
   <button type="button" onclick="downloadComparision()" class="btn btn-primary btn-block col-4"><i class="fa-solid fa-download"></i><br>Stáhnout Srovnání</button>
@@ -99,7 +104,7 @@
 <!-- Use JS -->
   <script type="text/javascript" src="static/js/gas_download.js"></script>
   <!-- JS for comparison table -->
-  <script type="text/javascript" src="static/js/renderTable.js"></script>
+  <script type="text/javascript" src="static/js/renderGasTable.js"></script>
 
   <!-- CDN for pdfmake -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js" integrity="sha512-a9NgEEK7tsCvABL7KqtUTQjl69z7091EVPpw5KxPlZ93T141ffe1woLtbXTX+r2/8TtTvRX/v4zTL2UlMUPgwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

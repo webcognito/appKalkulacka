@@ -11,7 +11,7 @@ function loadTable() {
 }
 
 // on button click add gas cost calculation to comparison table
-function addComp() {
+function addGasComp() {
     // load previous results from local storage
     gRows = getFromLocalStorage();
 
@@ -71,6 +71,8 @@ function getFromLocalStorage() {
     const reference = localStorage.getItem('gRows');
     if (reference) {
         gRows = JSON.parse(reference);
+    } else {
+        gRows = [];
     }
     return gRows
 }
@@ -115,4 +117,10 @@ function renderGRows(gRows) {
 
         table.appendChild(tr);
     }
+}
+
+function clearGTable(gRows) {
+    localStorage.clear(gRows);
+    gRows = localStorage.getItem('gRows');
+    renderGRows(gRows);
 }

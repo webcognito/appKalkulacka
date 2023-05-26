@@ -94,12 +94,12 @@ function downloadDetailCalculation() {
                               {text: 'Měsíčna Záloha', colSpan: 3, border: [true, false, true , false], style: 'firstRow'}, 
                               {},
                               {}, 
-                              {text: 'Celková Cena za ' + '12' + ' měsícu', colSpan: 3, fillColor: '#ff9999', border: [true, false, true, false], style: 'firstRow'}, 
+                              {text: 'Celková Cena za ' + gMonths + ' měsícu', colSpan: 3, fillColor: '#ff9999', border: [true, false, true, false], style: 'firstRow'}, 
                               {}, 
                               {}
                           ],
                           [
-                              {text: gAdvance + ' Kč za', colSpan: 3, border: [true, false, true, false], alignment: 'center'}, 
+                              {text: gAdvance + ' Kč', colSpan: 3, border: [true, false, true, false], alignment: 'center'}, 
                               {}, 
                               {}, 
                               {text: gTotal + ' Kč', colSpan: 3, fillColor: '#ff9999', fontSize: 15, bold: true, border: [true, false, true, false], decoration: 'underline', decorationStyle: 'double', alignment: 'center'}, 
@@ -319,7 +319,7 @@ function downloadDetailWithComp() {
                           [
                               {text: gCost + ' Kč', colSpan: 2, border: [true, false, true, true], alignment: 'center'}, 
                               {}, 
-                              {text: gCostDistxMonths + ' Kč za ' + '12' + ' měsícu', colSpan: 2, border: [true, false, true, true], alignment: 'center'}, 
+                              {text: gCostDistxMonths + ' Kč za ' + gMonths + ' měsícu', colSpan: 2, border: [true, false, true, true], alignment: 'center'}, 
                               {}, 
                               {text: gCostDist + ' Kč za měsíc', colSpan: 2, border: [true, false, true, true], alignment: 'center'}, 
                               {}
